@@ -1,0 +1,32 @@
+<% include layouts/header.ejs %>
+  <br>
+    <div class="container">
+        <h1><%= title %></h1><br>
+
+        <div class="row">
+
+          <% for(var i=0; i<producto.length; i++) { %>        
+            
+            <div class="col-sm-3">
+              <div class="card">
+                <div class="card-body">
+                    <p class="card-text">
+                        <h5>id: <%= producto[i].identificacion %></h5>
+                    </p>
+                  <h5 class="card-title"><%= producto[i].titulo %></h5>
+                  <img height="300px" src="<%=producto[i].imagen %>" class="card-img-top" alt="">
+                  <p class="card-text">
+                    <h5>$<%= producto[i].precio %></h5>
+                  </p>
+             
+                </div>
+              </div>
+            </div>
+
+          <% } %>
+
+        </div>
+      
+    </div>
+
+<%- include layouts/footer.ejs %>

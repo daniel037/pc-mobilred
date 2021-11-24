@@ -1,0 +1,36 @@
+<%- include layouts/header.ejs %>
+
+    <div class="container">
+        <h1><%= title %></h1>
+
+        <div>
+            <form action="/agregar" method="POST" class="row g-3">
+                <div class="col-auto">
+                    <label for="id_producto" class="visually-hidden">Identificacion</label>
+                    <input type="text" class="form-control" id="id_producto" name="id_producto" value="<%= producto[0].id %>">
+                  </div>
+                <div class="col-auto">
+                  <label for="identificacion" class="visually-hidden">Identificacion</label>
+                  <input type="text" class="form-control" id="identificacion" name="identificacion" placeholder="Identificacion" required>
+                </div>
+                <div class="col-auto">
+                    <input type="submit" class="btn btn-outline-primary" value="Confirmar" onclick="agregado()">
+                    <a href="/productos " class="btn btn-outline-danger">Atras</a>
+                </div>
+              </form>   
+        </div>
+
+    </div>
+
+<%- include layouts/footer.ejs %>
+
+<script>
+    function agregado() {
+        var identificacion = document.getElementById("identificacion").value;
+        if (identificacion == "") {
+            alert("Debes agregar Identificacion"); 
+        } else {
+        alert("Producto Agregado al Carrito");
+  }
+}
+</script>
