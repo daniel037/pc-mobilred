@@ -91,6 +91,42 @@ router.post('/buscar', function(req, res, next) {
 });
 
 
+/* GET seccion carrito */
+router.get('/carrito/:id/:identificacion', function(req, res, next) {
+  const { id, identificacion } = req.params;
+
+  db.query("delete from compra where id_producto = ? and identificacion = ? limit 1",[id, identificacion], function(err, resultados){
+    console.log(resultados);
+  });
+
+  db.query("SELECT * FROM compra INNER JOIN tblproductos on compra.id_producto = tblproductos.id and compra.identificacion = ?", [identificacion], function(err, resultados){
+    console.log('------------  buscar ------')
+    console.log(resultados);
+
+    res.render('carrito', { title: 'mi carito', producto: resultados });
+  });
+
+});
+
+
+/* GET seccion buscar 
+router.get('/facturacion', function(req, res, next) {
+  res.render('facturacion', { title: 'facturacion' });
+});
+*/
+
+/* GET seccion buscar */
+router.get('/facturacion/:identificacion', function(req, res, next) {
+  const {identificacion} = req.params;
+
+  db.query("SELECT * FROM compra INNER JOIN tblproductos on compra.id_producto = tblproductos.id and compra.identificacion = ?", [identificacion], function(err, resultados){
+    console.log('------------  resultado de factura ------')
+    console.log(resultados);
+
+    res.render('facturacion', { title: 'mi factura....', producto: resultados });
+  });
+
+});
 
 
 module.exports = router;
