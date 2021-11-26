@@ -1,4 +1,12 @@
 <%- include layouts/header.ejs %>
+    <style type="text/css">  
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+        }
+        input[type=number] { -moz-appearance:textfield; }
+    </style>
     <br>
     <div class="container">
         <h1><%= title %></h1>
@@ -6,7 +14,7 @@
             <form action="/buscar" method="POST" class="row g-3" style="margin-left: 35%; margin-top: 15PX;">
                 <div class="col-auto">
                   <label for="identificacion" class="visually-hidden">Identificacion</label>
-                  <input type="text" class="form-control" id="identificacion" name="identificacion" placeholder="Identificacion" required>
+                  <input type="number" class="form-control" id="identificacion" name="identificacion" placeholder="Identificacion" style="-webkit-appearance: none;" required>
                 </div>
                 <div class="col-auto">
                     <input type="submit" class="btn btn-outline-primary" value="Buscar">

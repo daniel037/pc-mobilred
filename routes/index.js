@@ -75,7 +75,7 @@ router.get('/buscar', function(req, res, next) {
 router.post('/buscar', function(req, res, next) {
   const {identificacion} = req.body;
 
-  db.query("SELECT * FROM compra INNER JOIN tblproductos on compra.id_producto = tblproductos.id and compra.identificacion = ?", [identificacion], function(err, resultados){
+  db.query("SELECT * FROM compra INNER JOIN tblproductos on compra.id_producto = tblproductos.id and compra.identificacion = ?", [identificacion], function(err, resultados){  
     res.render('carrito', { title: 'MI CARRITO:' + ' ' + resultados[0].identificacion, producto: resultados });
   });
 });
