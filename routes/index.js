@@ -3,129 +3,109 @@ var router = express.Router();
 
 var db = require('../conexion/conexion');
 
-/* GET home page. */
+//Metodo GET para la ruta principal
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'PRINCIPAL' });
 });
 
 
-/* GET seccion contactanos */
+//Metodo GET para la ruta de contactanos
 router.get('/contactanos', function(req, res, next) {
   res.render('contactanos', { title: 'PC-MOBILRED ESTAMOS ATENTOS A TU SOLICITUD..' });
 });
 
-
-/* GET seccion productos */
+//Metodo GET para la ruta de productos
 router.get('/productos', function(req, res, next) {
-  //conexion a base de datos
+  //conexion a base de datos, y consulta para traer los productos
   db.query("select * from tblproductos", function(err, resultados){
-      console.log(resultados);
-      res.render('productos', { title: 'PRODUCTOS DISPONIBLES...', libros: resultados });
+      //se renderisa en la pagina de productos, el resultado de la consulta
+      res.render('productos', { title: 'PRODUCTOS DISPONIBLES...', productos: resultados });
    });
 });
 
-
-/* GET seccion detalle */
+//Metodo GET para la ruta detalle del producto
 router.get('/detalle/:id', function(req, res, next) {
+  //se resibe el id como parametro
   const { id } = req.params;
-
+  //conexion a base de datos, y consulta de los detalles del parametro utilizando el id del producto 
   db.query("select * from tblproductos where id = ?",[id], function(err, resultados){
-    console.log(resultados);
-    res.render('detalle', { title: 'Detalle Del Producto', producto: resultados });
+    res.render('detalle', { title: 'DETALLE DEL PRODUCTO', producto: resultados });
   });
 
 });
 
-/* GET seccion servicios */
-router.get('/servicios', function(req, res, next) {
-  res.render('servicios', { title: 'servicios' });
-});
 
-/* GET seccion compra */
+//Metodo GET para la ruta de compra
 router.get('/compra/:id', function(req, res, next) {
   const { id } = req.params;
-
   db.query("select * from tblproductos where id = ?",[id], function(err, resultados){
-    console.log(resultados);
-    res.render('compra', { title: 'compra', producto: resultados });
+    res.render('compra', { title: 'COMPRA', producto: resultados });
   });
-
 });
 
 
-/* */
+//Metodo POST para el metodo de gregar productos al carrito 
 router.post('/agregar', (req, res) => {
+  //obtenemos identificacion y id_producto como constantes
   const {identificacion, id_producto} = req.body;
-  db.query(
-    ' INSERT INTO compra SET ?',
-    {
+
+  //conexion y consulta a base de datos
+  db.query(' INSERT INTO compra SET ?',{
       identificacion,
       id_producto
-    },
-    (err, result) => {
+    },(err, result) => {
+      //redirigimos a una ventana anterior
       res.redirect('/productos');
     }
   );
-  
 });
 
 
-
-/* GET seccion buscar */
+//Metodo GET para la ruta buscar
+//simplemente nos redirecciona a la pantalla de buscar
 router.get('/buscar', function(req, res, next) {
-  res.render('buscar', { title: 'Buscar' });
+  res.render('buscar', { title: 'BUSCAR CON IDENTIFICACION' });
 });
 
 
-/* POST seccion buscar */
+//Metodo POST para la ruta buscar
+//aqui buscamos el numero de identificacion qeu colocamos en la busqueda
+//para hacer la consulta de los productos asociados a la identificacion que estan 
+//en el carrito
 router.post('/buscar', function(req, res, next) {
   const {identificacion} = req.body;
 
   db.query("SELECT * FROM compra INNER JOIN tblproductos on compra.id_producto = tblproductos.id and compra.identificacion = ?", [identificacion], function(err, resultados){
-    console.log('------------  buscar ------')
-    console.log(resultados);
-
-    res.render('carrito', { title: 'mi carito', producto: resultados });
+    res.render('carrito', { title: 'MI CARRITO:' + ' ' + resultados[0].identificacion, producto: resultados });
   });
-
 });
 
 
-/* GET seccion carrito */
+//Metodo GET para la ruta carrito
+//este metodo es el que se encarga de la eliminacion de un producto cuando lo quitamos del carrito
 router.get('/carrito/:id/:identificacion', function(req, res, next) {
+  //obtenemos el ide del producto y la identificacion del cliente asociado a este como parametros
   const { id, identificacion } = req.params;
 
+  //conectamos a la base de datos y eliminamos el producto seleccionado
   db.query("delete from compra where id_producto = ? and identificacion = ? limit 1",[id, identificacion], function(err, resultados){
-    console.log(resultados);
   });
 
+  //realizamos una nueva consulta de los productos asociados al cliente y los renderizamos nuevamente 
   db.query("SELECT * FROM compra INNER JOIN tblproductos on compra.id_producto = tblproductos.id and compra.identificacion = ?", [identificacion], function(err, resultados){
-    console.log('------------  buscar ------')
-    console.log(resultados);
-
-    res.render('carrito', { title: 'mi carito', producto: resultados });
+    res.render('carrito', { title: 'MI CARRITO', producto: resultados });
   });
 
 });
 
 
-/* GET seccion buscar 
-router.get('/facturacion', function(req, res, next) {
-  res.render('facturacion', { title: 'facturacion' });
-});
-*/
-
-/* GET seccion buscar */
+//Metodo GET para la ruta facturacion
 router.get('/facturacion/:identificacion', function(req, res, next) {
   const {identificacion} = req.params;
 
   db.query("SELECT * FROM compra INNER JOIN tblproductos on compra.id_producto = tblproductos.id and compra.identificacion = ?", [identificacion], function(err, resultados){
-    console.log('------------  resultado de factura ------')
-    console.log(resultados);
-
-    res.render('facturacion', { title: 'mi factura....', producto: resultados });
+    res.render('facturacion', { title: 'MI FACTURA', producto: resultados });
   });
-
 });
 
 

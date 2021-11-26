@@ -1,45 +1,43 @@
 <% include layouts/header.ejs %>
   <br>
-    <div class="container">
-        <h1><%= title %></h1><br>
-
-        <table class="table table-striped">
-          <thead>
+  <div class="container">
+    <h1><%= title %></h1><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col"> </th>
+          <th scope="col" colspan="2">Producto</th>
+          <th scope="col">Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% 
+          var total = 0
+          for(var i=0; i<producto.length; i++) { %>     
             <tr>
-              <th scope="col"> </th>
-              <th scope="col" colspan="2">Producto</th>
-              <th scope="col">Precio</th>
+              <td>
+                <a href="/carrito/<%= producto[i].id %>/<%= producto[i].identificacion %>" class="btn btn-outline-danger">Quitar</a>
+              </td>
+              <td colspan="2">
+                <img height="70" width="70" src="<%= producto[i].imagen %>">
+                <%= producto[i].titulo %>
+              </td>
+              <td>
+                $<%= producto[i].precio %>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <% 
-              var total = 0
-              for(var i=0; i<producto.length; i++) { %>     
-                <tr>
-                  <td><a href="/carrito/<%= producto[i].id %>/<%= producto[i].identificacion %>" class="btn btn-outline-danger">Quitar</a></td>
-                  <td colspan="2">
-                    <img height="70" width="70" src="<%= producto[i].imagen %>">
-                    <%= producto[i].titulo %>
-                  </td>
-                  <td>$<%= producto[i].precio %></td>
-                </tr>
-                <label hidden><%= total = total + producto[i].precio %></label> 
-            <% } %>
-            <tr>
-              <td colspan="2"><h2>Valor Total:</h2></td>
-              <td colspan="2"><h2>$<%= total %></h2></td>
-            </tr>
-          </tbody>
-        </table>
-        <a href="/facturacion/<%= producto[0].identificacion %>" class="btn btn-outline-primary">Finalizar Compra</a> 
-    </div>
+            <label hidden><%= total = total + producto[i].precio %></label> 
+        <% } %>
+        <tr>
+          <td colspan="2"><h2>Valor Total:</h2></td>
+          <td colspan="2"><h2>$<%= total %></h2></td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="/facturacion/<%= producto[0].identificacion %>" class="btn btn-outline-primary">Finalizar Compra</a> 
+  </div>
 
 <%- include layouts/footer.ejs %>
 
 
 
-
-<div class="row">
-
-  
-</div>

@@ -1,14 +1,9 @@
 <%- include layouts/header.ejs %>
-
+    <br>
     <div class="container">
         <h1><%= title %></h1>
-
-        <div>
-            <form action="/agregar" method="POST" class="row g-3">
-                <div class="col-auto">
-                    <label for="id_producto" class="visually-hidden">Identificacion</label>
-                    <input type="text" class="form-control" id="id_producto" name="id_producto" value="<%= producto[0].id %>">
-                  </div>
+        <div class="container">
+            <form action="/agregar" method="POST" class="row g-3" style="margin-left: 35%; margin-top: 15PX;">
                 <div class="col-auto">
                   <label for="identificacion" class="visually-hidden">Identificacion</label>
                   <input type="text" class="form-control" id="identificacion" name="identificacion" placeholder="Identificacion" required>
@@ -17,13 +12,14 @@
                     <input type="submit" class="btn btn-outline-primary" value="Confirmar" onclick="agregado()">
                     <a href="/productos " class="btn btn-outline-danger">Atras</a>
                 </div>
-              </form>   
+            </form>   
         </div>
-
     </div>
 
 <%- include layouts/footer.ejs %>
 
+<!-- hacemos la validacion para el campo de identificacion tenga un valor,
+    en caso que este bacion no se realiza accion alguna -->
 <script>
     function agregado() {
         var identificacion = document.getElementById("identificacion").value;

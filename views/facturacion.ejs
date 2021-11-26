@@ -1,109 +1,92 @@
 <%- include layouts/header.ejs %>
-
+    <br>
     <div class="container">
         <h1><%= title %></h1>
+        <form class="row g-3">
+            <div class="col-md-6">
+              <label for="inputnombre" class="form-label">Nombre*</label>
+              <input type="text" class="form-control" id="inputnombre" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputapellido" class="form-label">Apellidos*</label>
+              <input type="text" class="form-control" id="inputapellido" required>
+            </div>
+            <div class="col-12">
+                <label for="inputempresa" class="form-label">Nombre de la Empresa (OPCIONAL)</label>
+                <input type="text" class="form-control" id="inputempresa">
+            </div>
 
-            <form class="row g-3">
-
-                <div class="col-md-6">
-                  <label for="inputnombre" class="form-label">Nombre*</label>
-                  <input type="text" class="form-control" id="inputnombre" required>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="inputapellido" class="form-label">Apellidos*</label>
-                  <input type="text" class="form-control" id="inputapellido" required>
-                </div>
-
-                <div class="col-12">
-                    <label for="inputempresa" class="form-label">Nombre de la Empresa (OPCIONAL)</label>
-                    <input type="text" class="form-control" id="inputempresa">
-                </div>
-
-                <div class="col-12">
-                    <label for="inputpais" class="form-label">Pais</label>
-                    <input type="text" class="form-control" id="inputpais" value="Colombia" disabled>
-                </div>
-
-                <div class="col-12">
-                  <label for="inputdireccion" class="form-label">Direccion de la Calle*</label>
-                  <input type="text" class="form-control" id="inputdireccion" placeholder="Numero de la casa y Nombre de la calle" required>
-                </div>
-
-                <div class="col-12">
-                  <label for="inputdireccion2" class="form-label">Direccion 2</label>
-                  <input type="text" class="form-control" id="inputdireccion2" placeholder="Apartamento, Habitacion, etc... (OPCIONAL)">
-                </div>
-
-                <div class="col-md-6">
-                    <label for="inputcelular" class="form-label">Celular*</label>
-                    <input type="text" class="form-control" id="inputcelular" required>
-                </div>
-  
-                <div class="col-md-6">
-                    <label for="inputtelefono" class="form-label">Telefono</label>
-                    <input type="text" class="form-control" id="inputtelefono">
-                </div>
-
-                <div class="col-12">
-                    <label for="inputcorreo" class="form-label">Correo Electronico*</label>
-                    <input type="text" class="form-control" id="inputcorreo" required>
-                </div>
-
-
-                <div class="col-12">
-                    <label for="inputidentidad" class="form-label">Documento de Identidad*</label>
-                    <input type="text" class="form-control" id="inputidentidad" required>
-                </div>
-
-                <br><hr>
-                <h3>Tu Pedido</h3>
-
-                
-
-                <table class="table table-striped">
-                    <thead>
-                      <tr>
+            <div class="col-12">
+                <label for="inputpais" class="form-label">Pais</label>
+                <input type="text" class="form-control" id="inputpais" value="Colombia" disabled>
+            </div>
+            <div class="col-12">
+                <label for="inputdireccion" class="form-label">Direccion de la Calle*</label>
+              <input type="text" class="form-control" id="inputdireccion" placeholder="Numero de la casa y Nombre de la calle" required>
+            </div>
+            <div class="col-12">
+              <label for="inputdireccion2" class="form-label">Direccion 2</label>
+              <input type="text" class="form-control" id="inputdireccion2" placeholder="Apartamento, Habitacion, etc... (OPCIONAL)">
+            </div>
+            <div class="col-md-6">
+                <label for="inputcelular" class="form-label">Celular*</label>
+                <input type="text" class="form-control" id="inputcelular" required>
+            </div>  
+            <div class="col-md-6">
+                <label for="inputtelefono" class="form-label">Telefono</label>
+                <input type="text" class="form-control" id="inputtelefono">
+            </div>
+            <div class="col-12">
+                <label for="inputcorreo" class="form-label">Correo Electronico*</label>
+                <input type="text" class="form-control" id="inputcorreo" required>
+            </div>
+            <div class="col-12">
+                <label for="inputidentidad" class="form-label">Documento de Identidad*</label>
+                <input type="text" class="form-control" id="inputidentidad" required>
+            </div>
+            <br><hr>
+            <h3>Tu Pedido</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
                         <th scope="col">Producto</th>
                         <th scope="col">subtotal</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <% 
-                            var total = 0
-                            for(var i=0; i<producto.length; i++) { %>     
-                                <tr>
-                                    <td>
-                                        <%= producto[i].titulo %>
-                                    </td>
-                                    <td>$<%= producto[i].precio %></td>
-                                </tr>
-                                <label hidden><%= total = total + producto[i].precio %></label> 
-                            <% } %>
-                        <tr>
-                            <td><h2>Valor Total:</h2></td>
-                            <td><h2>$<%= total %></h2></td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <br><br>
-
-                <div class="card text-center">
-                    <div class="card-header">
-                        Transferencia bancaria directa (Bancolombia y Nequi)
-                    </div>
-                    <div class="card-body">
-                      <p>
-                          <b>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% 
+                        var total = 0
+                        for(var i=0; i<producto.length; i++) { %>     
+                            <tr>
+                                <td>
+                                    <%= producto[i].titulo %>
+                                </td>
+                                <td>$<%= producto[i].precio %></td>
+                            </tr>
+                            <label hidden><%= total = total + producto[i].precio %></label> 
+                        <% } %>
+                    <tr>
+                        <td><h2>Valor Total:</h2></td>
+                        <td><h2>$<%= total %></h2></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br><br>
+            <div class="card text-center">
+                <div class="card-header">
+                    Transferencia bancaria directa (Bancolombia y Nequi)
+                </div>
+                <div class="card-body">
+                    <p>
+                      <b>
                             Una vez finalize la compra realice un depósito en nuestra cuenta de Bancolombia o Nequi.
                             Enviar comprobante de pago y numero de orden a:
                           </b>
-                      </p>
-                      <p>* WhatsApp Business 3168377671</p>
-                      <a href="#" class="btn btn-primary">Realizar Pedido</a>
-                    </div>
-                  </div>
-              </form>
+                    </p>
+                    <p>* WhatsApp Business 3168377671</p>
+                    <a href="#" class="btn btn-primary">Realizar Pedido</a>
+                </div>
+            </div>
+        </form>
     </div>
 <%- include layouts/footer.ejs %>
