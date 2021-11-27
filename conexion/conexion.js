@@ -15,5 +15,5 @@ connection.connect(
         else{console.log('conexion fallida');}
     }
  );
-
+ 
 module.exports=connection;

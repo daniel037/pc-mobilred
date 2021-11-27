@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 //Metodo GET para la ruta de contactanos
 router.get('/contactanos', function(req, res, next) {
-  res.render('contactanos', { title: 'PC-MOBILRED ESTAMOS ATENTOS A TU SOLICITUD..' });
+  res.render('contactanos', { title: 'PC-MOBILRED ESTAMOS ATENTOS A TU SOLICITUD.' });
 });
 
 //Metodo GET para la ruta de productos
@@ -19,7 +19,7 @@ router.get('/productos', function(req, res, next) {
   //conexion a base de datos, y consulta para traer los productos
   db.query("select * from tblproductos", function(err, resultados){
       //se renderisa en la pagina de productos, el resultado de la consulta
-      res.render('productos', { title: 'PRODUCTOS DISPONIBLES...', productos: resultados });
+      res.render('productos', { title: 'PRODUCTOS DISPONIBLES.', productos: resultados });
    });
 });
 
@@ -29,7 +29,7 @@ router.get('/detalle/:id', function(req, res, next) {
   const { id } = req.params;
   //conexion a base de datos, y consulta de los detalles del parametro utilizando el id del producto 
   db.query("select * from tblproductos where id = ?",[id], function(err, resultados){
-    res.render('detalle', { title: 'DETALLE DEL PRODUCTO', producto: resultados });
+    res.render('detalle', { title: 'DETALLE DEL PRODUCTO.', producto: resultados });
   });
 
 });
@@ -39,7 +39,7 @@ router.get('/detalle/:id', function(req, res, next) {
 router.get('/compra/:id', function(req, res, next) {
   const { id } = req.params;
   db.query("select * from tblproductos where id = ?",[id], function(err, resultados){
-    res.render('compra', { title: 'COMPRA', producto: resultados });
+    res.render('compra', { title: 'COMPRA.', producto: resultados });
   });
 });
 
@@ -64,7 +64,7 @@ router.post('/agregar', (req, res) => {
 //Metodo GET para la ruta buscar
 //simplemente nos redirecciona a la pantalla de buscar
 router.get('/buscar', function(req, res, next) {
-  res.render('buscar', { title: 'BUSCAR CON IDENTIFICACION' });
+  res.render('buscar', { title: 'BUSCAR CON IDENTIFICACIÓN.' });
 });
 
 
@@ -93,7 +93,7 @@ router.get('/carrito/:id/:identificacion', function(req, res, next) {
 
   //realizamos una nueva consulta de los productos asociados al cliente y los renderizamos nuevamente 
   db.query("SELECT * FROM compra INNER JOIN tblproductos on compra.id_producto = tblproductos.id and compra.identificacion = ?", [identificacion], function(err, resultados){
-    res.render('carrito', { title: 'MI CARRITO', producto: resultados });
+    res.render('carrito', { title: 'MI CARRITO:' + ' ' + resultados[0].identificacion, producto: resultados });
   });
 
 });
@@ -104,7 +104,7 @@ router.get('/facturacion/:identificacion', function(req, res, next) {
   const {identificacion} = req.params;
 
   db.query("SELECT * FROM compra INNER JOIN tblproductos on compra.id_producto = tblproductos.id and compra.identificacion = ?", [identificacion], function(err, resultados){
-    res.render('facturacion', { title: 'MI FACTURA', producto: resultados });
+    res.render('facturacion', { title: 'MI FACTURA.', producto: resultados });
   });
 });
 
