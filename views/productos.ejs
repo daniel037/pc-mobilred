@@ -15,11 +15,11 @@
           <div class="accordion-body">
             <div class="row">
               <% for(var i=0; i<productos.length; i++) { %>
-                <% if (productos[i].id_tipo == 2) { %>                      
+                <% if (productos[i].id_tipo_producto == 1) { %>                      
                   <div class="col-sm-3">
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title"><%= productos[i].titulo %></h5>
+                        <h5 class="card-title"><%= productos[i].nombre %></h5>
                         <img src="<%=productos[i].imagen %>" class="card-img-top" alt="">
                         <p class="card-text">
                           <h5>$<%= productos[i].precio %></h5>
@@ -45,11 +45,11 @@
           <div class="accordion-body">
             <div class="row">
               <% for(var i=0; i<productos.length; i++) { %>
-                <% if (productos[i].id_tipo == 1) { %>                      
+                <% if (productos[i].id_tipo_producto == 2) { %>                      
                   <div class="col-sm-3">
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title"><%= productos[i].titulo %></h5>
+                        <h5 class="card-title"><%= productos[i].nombre %></h5>
                         <img src="<%=productos[i].imagen %>" class="card-img-top" alt="">
                         <p class="card-text">
                           <h5>$<%= productos[i].precio %></h5>

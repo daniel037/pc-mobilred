@@ -3,46 +3,43 @@
     <div class="container">
         <h1><%= title %></h1>
         <br>
-        <form class="row g-3">
+        <form action="/agregar-factura" method="POST"  class="row g-3">
             <div class="col-md-6">
-              <label for="inputnombre" class="form-label">Nombre*</label>
-              <input type="text" class="form-control" id="inputnombre" required>
-            </div>
-            <div class="col-md-6">
-              <label for="inputapellido" class="form-label">Apellidos*</label>
-              <input type="text" class="form-control" id="inputapellido" required>
-            </div>
-            <div class="col-12">
-                <label for="inputempresa" class="form-label">Nombre de la Empresa (OPCIONAL)</label>
-                <input type="text" class="form-control" id="inputempresa">
-            </div>
-            <div class="col-12">
-                <label for="inputpais" class="form-label">País</label>
-                <input type="text" class="form-control" id="inputpais" value="Colombia" disabled>
-            </div>
-            <div class="col-12">
-                <label for="inputdireccion" class="form-label">Dirección de la Calle*</label>
-              <input type="text" class="form-control" id="inputdireccion" placeholder="Número de la casa y Nombre de la calle" required>
-            </div>
-            <div class="col-12">
-              <label for="inputdireccion2" class="form-label">Dirección 2</label>
-              <input type="text" class="form-control" id="inputdireccion2" placeholder="Apartamento, Habitación, etc... (OPCIONAL)">
+              <label for="nombre" class="form-label">Nombre*</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
             <div class="col-md-6">
-                <label for="inputcelular" class="form-label">Celular*</label>
-                <input type="text" class="form-control" id="inputcelular" required>
+              <label for="apellidos" class="form-label">Apellidos*</label>
+              <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+            </div>
+            <div class="col-12">
+                <label for="empresa" class="form-label">Nombre de la Empresa (OPCIONAL)</label>
+                <input type="text" class="form-control" id="empresa" name="empresa">
+            </div>
+            
+            <div class="col-12">
+                <label for="direccion" class="form-label">Dirección de la Calle*</label>
+              <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Número de la casa y Nombre de la calle" required>
+            </div>
+            <div class="col-12">
+              <label for="direccion2" class="form-label">Dirección 2</label>
+              <input type="text" class="form-control" id="direccion2" name="direccion2" placeholder="Apartamento, Habitación, etc... (OPCIONAL)">
+            </div>
+            <div class="col-md-6">
+                <label for="celular" class="form-label">Celular*</label>
+                <input type="text" class="form-control" id="celular" name="celular" required>
             </div>  
             <div class="col-md-6">
-                <label for="inputtelefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="inputtelefono">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" >
             </div>
             <div class="col-12">
-                <label for="inputcorreo" class="form-label">Correo Electronico*</label>
-                <input type="text" class="form-control" id="inputcorreo" required>
+                <label for="correo" class="form-label">Correo Electronico*</label>
+                <input type="text" class="form-control" id="correo" name="correo" required>
             </div>
             <div class="col-12">
-                <label for="inputidentidad" class="form-label">Documento de Identidad*</label>
-                <input type="text" class="form-control" id="inputidentidad" required>
+                <label for="identificacion" class="form-label">Documento de Identidad*</label>
+                <input type="text" class="form-control" id="identificacion" name="identificacion" value="<%= producto[0].identificacion %>" required>
             </div>
             <br><br><br><br><hr>
             <h3>Tu Pedido</h3>
@@ -54,12 +51,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% 
+                    <%      
                         var total = 0
                         for(var i=0; i<producto.length; i++) { %>     
                             <tr>
                                 <td>
-                                    <%= producto[i].titulo %>
+                                    <%= producto[i].nombre %>
                                 </td>
                                 <td>$<%= producto[i].precio %></td>
                             </tr>
@@ -84,9 +81,29 @@
                         </b>
                     </p>
                     <p>* WhatsApp Business 3168377671</p>
-                    <a href="#" class="btn btn-primary">Realizar Pedido</a>
                 </div>
             </div>
+            <input type="submit" class="btn btn-outline-primary" value="Realizar Pedido" onclick="comprado()">
         </form>
     </div>
 <%- include layouts/footer.ejs %>
+
+<!-- hacemos la validacion para el campo de identificacion tenga un valor,
+    en caso que este bacion no se realiza accion alguna -->
+<script>
+    function comprado() {
+        var nombre = document.getElementById("nombre").value;
+        var apellidos = document.getElementById("apellidos").value;
+        var direccion  = document.getElementById("direccion").value;
+        var celular = document.getElementById("celular").value;
+        var correo = document.getElementById("correo").value;
+        var identificacion = document.getElementById("identificacion").value;
+
+        if (identificacion == "" || correo == "" || celular == "" || direccion == "" || apellidos == "" || nombre == "") {
+            alert("Tienes que llenar todos los datos obligatorios"); 
+        } 
+        else{
+            alert("Gracias por tu Compra");
+        }
+    }
+</script>

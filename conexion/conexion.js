@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
     host : 'localhost',
     user: 'root',
     password: '',
-    database: 'ventas',
+    database: 'pc-mobilred',
 });
 
 //se realiza conexion y se verifica si esta fue exitosa o no
