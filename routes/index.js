@@ -1,3 +1,4 @@
+const { json } = require('express');
 var express = require('express');
 var router = express.Router();
 
@@ -77,16 +78,19 @@ router.get('/buscar', function(req, res, next) {
 router.post('/buscar', function(req, res, next) {
   const {identificacion} = req.body;
   const estado = 'activo';
-
-    try {
+  
+  db.query("SELECT COUNT(*) FROM carrito INNER JOIN producto on carrito.id_producto = producto.id and carrito.identificacion = ? and carrito.estado = ?",[identificacion, estado], function(err, cantidad){ 
+    
+    if(Object.values(cantidad[0]) > 0) {
       db.query("SELECT * FROM carrito INNER JOIN producto on carrito.id_producto = producto.id and carrito.identificacion = ? and carrito.estado = ?", [identificacion, estado], function(err, resultados){      
         res.render('carrito', { title: 'MI CARRITO:' + ' ' + resultados[0].identificacion, producto: resultados });
       });
-    } catch (error) {
-      console.log(error);
+    }else{
+      console.log("no hay datos");
+      res.render('buscar', { title: 'No se encontraron datos.. Intente con otra Identificación.' });
     }
-
     
+  });
 });
 
 
@@ -99,13 +103,26 @@ router.get('/carrito/:id/:identificacion', function(req, res, next) {
 
   //conectamos a la base de datos y eliminamos el producto seleccionado
   db.query("delete from carrito where id_producto = ? and identificacion = ? limit 1",[id, identificacion], function(err, resultados){
+    //realizamos una nueva consulta de los productos asociados al cliente y los renderizamos nuevamente 
+    db.query("SELECT COUNT(*) FROM carrito INNER JOIN producto on carrito.id_producto = producto.id and carrito.identificacion = ? and carrito.estado = ?",[identificacion, estado], function(err, cantidad){ 
+      if(Object.values(cantidad[0]) > 0) {
+        db.query("SELECT * FROM carrito INNER JOIN producto on carrito.id_producto = producto.id and carrito.identificacion = ? and carrito.estado = ?", [identificacion, estado], function(err, resultados){      
+          res.render('carrito', { title: 'MI CARRITO:' + ' ' + resultados[0].identificacion, producto: resultados });
+        });
+      }else{
+        res.render('buscar', { title: 'No se encontraron datos.. Intente con otra Identificación.' });
+      }    
+    });
   });
 
-  //realizamos una nueva consulta de los productos asociados al cliente y los renderizamos nuevamente 
-  db.query("SELECT * FROM carrito INNER JOIN producto on carrito.id_producto = producto.id and carrito.identificacion = ? and carrito.estado = ?", [identificacion, estado], function(err, resultados){
-    res.render('carrito', { title: 'MI CARRITO:' + ' ' + resultados[0].identificacion, producto: resultados });
-  });
 });
+
+
+
+
+
+
+
 
 
 //Metodo GET para la ruta facturacion

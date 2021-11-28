@@ -1,4 +1,12 @@
 <%- include layouts/header.ejs %>
+    <style type="text/css">  
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+        }
+        input[type=number] { -moz-appearance:textfield; }
+    </style>
     <br>
     <div class="container">
         <h1><%= title %></h1>
@@ -27,19 +35,19 @@
             </div>
             <div class="col-md-6">
                 <label for="celular" class="form-label">Celular*</label>
-                <input type="text" class="form-control" id="celular" name="celular" required>
+                <input type="number" class="form-control" id="celular" name="celular" required>
             </div>  
             <div class="col-md-6">
                 <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="telefono" name="telefono" >
+                <input type="number" class="form-control" id="telefono" name="telefono" >
             </div>
             <div class="col-12">
                 <label for="correo" class="form-label">Correo Electronico*</label>
-                <input type="text" class="form-control" id="correo" name="correo" required>
+                <input type="email" class="form-control" id="correo" name="correo" required>
             </div>
             <div class="col-12">
                 <label for="identificacion" class="form-label">Documento de Identidad*</label>
-                <input type="text" class="form-control" id="identificacion" name="identificacion" value="<%= producto[0].identificacion %>" required>
+                <input type="number" class="form-control" id="identificacion" name="identificacion" value="<%= producto[0].identificacion %>" required>
             </div>
             <br><br><br><br><hr>
             <h3>Tu Pedido</h3>
