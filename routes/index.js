@@ -118,13 +118,6 @@ router.get('/carrito/:id/:identificacion', function(req, res, next) {
 });
 
 
-
-
-
-
-
-
-
 //Metodo GET para la ruta facturacion
 router.get('/facturacion/:identificacion', function(req, res, next) {
   const {identificacion} = req.params;
@@ -134,7 +127,6 @@ router.get('/facturacion/:identificacion', function(req, res, next) {
     res.render('facturacion', { title: 'MI FACTURA.', producto: resultados });
   });
 });
-
 
 
 //Metodo POST para el metodo de gregar productos al carrito 
@@ -175,7 +167,6 @@ router.post('/agregar-factura', (req, res) => {
     }
   );
 });
-
 
 
 module.exports = router;
